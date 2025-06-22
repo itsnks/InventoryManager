@@ -8,6 +8,6 @@ namespace InventoryManager.Data
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options):base(options)
         {
         }
-        DbSet<Item> Items { get; set; }
+        public DbSet<Item> Items { get; set; }
     }
 }
