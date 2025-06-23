@@ -52,7 +52,6 @@ namespace InventoryManager.Controllers
             {
                 return NotFound();
             }
-            item.Id = updateItemDTO.Id;
             item.ItemName = updateItemDTO.ItemName;
             item.ItemQuantity = updateItemDTO.ItemQuantity;
             item.ItemRate = updateItemDTO.ItemRate;
