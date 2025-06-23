@@ -20,7 +20,7 @@ namespace InventoryManager.Controllers
         public IActionResult GetItems()
         {
             var allItems = _db.Items.ToString();
-            return Ok();
+            return Ok(allItems);
         }
 
         [HttpPost]
@@ -41,6 +41,26 @@ namespace InventoryManager.Controllers
             }
 
             return Ok(itemEntity);
+        }
+
+        [HttpPut]
+        [Route("id:id")]
+        public IActionResult UpdateItems(int id,UpdateItemDTO updateItemDTO)
+        {
+            Item item = _db.Items.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            item.Id = updateItemDTO.Id;
+            item.ItemName = updateItemDTO.ItemName;
+            item.ItemQuantity = updateItemDTO.ItemQuantity;
+            item.ItemRate = updateItemDTO.ItemRate;
+
+            _db.Items.Update(item);
+            _db.SaveChanges();
+
+            return Ok(item);
         }
     }
 }
