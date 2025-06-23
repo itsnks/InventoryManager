@@ -44,7 +44,7 @@ namespace InventoryManager.Controllers
         }
 
         [HttpPut]
-        [Route("id:id")]
+        [Route("{id:int}")]
         public IActionResult UpdateItems(int id,UpdateItemDTO updateItemDTO)
         {
             Item item = _db.Items.Find(id);
@@ -61,6 +61,20 @@ namespace InventoryManager.Controllers
             _db.SaveChanges();
 
             return Ok(item);
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public IActionResult DeleteItem(int id)
+        {
+            var entity = _db.Items.Find(id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            _db.Items.Remove(entity);
+            _db.SaveChanges();
+            return Ok();
         }
     }
 }
