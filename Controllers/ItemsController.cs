@@ -17,9 +17,9 @@ namespace InventoryManager.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetItems()
+        public IActionResult GetAllItems()
         {
-            var allItems = _db.Items.ToString();
+            var allItems = _db.Items.ToList();
             return Ok(allItems);
         }
 
