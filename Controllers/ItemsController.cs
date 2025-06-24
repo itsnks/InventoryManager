@@ -23,12 +23,24 @@ namespace InventoryManager.Controllers
             return Ok(allItems);
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult GetItem(int id)
+        {
+            Item? itemEntity = _db.Items.Find(id);
+            if (itemEntity == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(itemEntity);
+        }
+
         [HttpPost]
         public IActionResult AddItems(AddItemsDTO addItemsDTO)
         {
             var itemEntity = new Item()
             {
-                Id = addItemsDTO.Id,
                 ItemName = addItemsDTO.ItemName,
                 ItemQuantity = addItemsDTO.ItemQuantity,
                 ItemRate = addItemsDTO.ItemRate
@@ -44,7 +56,7 @@ namespace InventoryManager.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}")]
+        [Route("{id}")]
         public IActionResult UpdateItems(int id,UpdateItemDTO updateItemDTO)
         {
             Item item = _db.Items.Find(id);
@@ -63,7 +75,7 @@ namespace InventoryManager.Controllers
         }
 
         [HttpDelete]
-        [Route("{id:int}")]
+        [Route("{id}")]
         public IActionResult DeleteItem(int id)
         {
             var entity = _db.Items.Find(id);
